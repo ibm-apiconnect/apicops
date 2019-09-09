@@ -2,10 +2,16 @@ apicops
 ===============
 
 <!-- toc -->
+* [About](#about)
 * [Requirements](#requirements)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
+
+# About
+`apicops` is a command line interface to IBM API Connect v2018 specifically targetted at Operations teams. It contains commands to check the healthy running of the system as well as some commands to remedy specific problems if encountered.
+
+It is in active development and new versions will be posted here regularly. All suggestions, feedback and bug reports are welcome - please feel free to raise an issue in this repository. Please limit the issues to those specific to `apicops` itself - we cannot accept ones about APIC, they have to be raised via the normal IBM Support route.
 
 # Requirements
 In order to run `apicops` you need to have `kubectl` installed locally.
@@ -279,7 +285,7 @@ ALIASES
 
 ## `apicops runbook`
 
-This command allows for a particular runbook scenario to executed.  For scenarios where multiple scripts need to be run it will prompt for inputs / chain script execution
+FUTURE! This command allows for a particular runbook scenario to executed.  For scenarios where multiple scripts need to be run it will prompt for inputs / chain script execution
 
 ```
 USAGE
