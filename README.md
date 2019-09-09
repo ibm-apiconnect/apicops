@@ -3,6 +3,7 @@ apicops
 
 <!-- toc -->
 * [About](#about)
+* [Installing](#installing)
 * [Requirements](#requirements)
 * [Usage](#usage)
 * [Commands](#commands)
