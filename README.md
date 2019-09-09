@@ -31,7 +31,7 @@ $ npm install -g apicops
 $ apicops COMMAND
 running command...
 $ apicops (-v|--version|version)
-apicops/0.1.24 linux-x64 node-v10.16.3
+apicops/0.1.26 linux-x64 node-v10.16.3
 $ apicops --help [COMMAND]
 USAGE
   $ apicops COMMAND
@@ -42,6 +42,7 @@ USAGE
 <!-- commands -->
 * [`apicops adjust_grace_period PERIOD`](#apicops-adjust_grace_period-period)
 * [`apicops cleanup_locks`](#apicops-cleanup_locks)
+* [`apicops custom_script SCRIPT [PARAMS]`](#apicops-custom_script-script-params)
 * [`apicops fix_orphan_webhooks`](#apicops-fix_orphan_webhooks)
 * [`apicops fix_snapshot_gw CATALOG`](#apicops-fix_snapshot_gw-catalog)
 * [`apicops fix_snapshot_webhook CATALOG`](#apicops-fix_snapshot_webhook-catalog)
@@ -56,6 +57,7 @@ USAGE
 * [`apicops mark_portal_webhook_subscription_state WEBHOOKSUBSCRIPTIONURL`](#apicops-mark_portal_webhook_subscription_state-webhooksubscriptionurl)
 * [`apicops renew_task TASKID`](#apicops-renew_task-taskid)
 * [`apicops runbook`](#apicops-runbook)
+* [`apicops send_snapshot SERVICEURL`](#apicops-send_snapshot-serviceurl)
 * [`apicops snapshot_builder URL`](#apicops-snapshot_builder-url)
 
 ## `apicops adjust_grace_period PERIOD`
@@ -85,6 +87,22 @@ ALIASES
   $ apicops locks
 ```
 
+## `apicops custom_script SCRIPT [PARAMS]`
+
+(custom) Runs the provided nodejs script inside the apim pod.
+
+```
+USAGE
+  $ apicops custom_script SCRIPT [PARAMS]
+
+ARGUMENTS
+  SCRIPT  The path to the script to execute inside the apim pod.
+  PARAMS  Any parameters to pass to the script, seperate multiple parameters by a space and enclose all paramaters in "
+
+ALIASES
+  $ apicops custom
+```
+
 ## `apicops fix_orphan_webhooks`
 
 (fixorphans) Fixes any orphaned webhooks.
@@ -106,8 +124,7 @@ USAGE
   $ apicops fix_snapshot_gw CATALOG
 
 ARGUMENTS
-  CATALOG  The catalog, specified as the name or UUID of the catalog with an optional preceeding org name or UUID,
-           seperated by a / or :. e.g. mycatalog or myorg/mycatalog
+  CATALOG  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
 
 ALIASES
   $ apicops fixsnapshotgateway
@@ -115,15 +132,14 @@ ALIASES
 
 ## `apicops fix_snapshot_webhook CATALOG`
 
-(fixsnapshotwebhook) Fixes the bad references of the api in api_urls in the product payload of the snapshot, at webhook level, for the given org and catalog.
+(fixsnapshotwebhook) Fixes the bad references of the api in api_urls in the product payload of the snapshot, at webhook level, for the the given catalog.
 
 ```
 USAGE
   $ apicops fix_snapshot_webhook CATALOG
 
 ARGUMENTS
-  CATALOG  The catalog, specified as the name or UUID of the catalog with an optional preceeding org name or UUID,
-           seperated by a / or :. e.g. mycatalog or myorg/mycatalog
+  CATALOG  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
 
 ALIASES
   $ apicops fixsnapshotwebhook
@@ -202,8 +218,7 @@ USAGE
   $ apicops get_snapshot_webhook URL
 
 ARGUMENTS
-  URL  The url of the org and catalog, or catalog of the form catalog or org/catalog. e.g.
-       00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000 or 00000000-0000-0000-0000-000000000000
+  URL  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
 
 ALIASES
   $ apicops checksnapshotwebhook
@@ -228,19 +243,19 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0
 
 ## `apicops identify_orphan_webhooks`
 
-(getorphans) Lists any orphaned webhooks.
+(checkorphans) Lists any orphaned webhooks.
 
 ```
 USAGE
   $ apicops identify_orphan_webhooks
 
 ALIASES
-  $ apicops getorphans
+  $ apicops checkorphans
 ```
 
 ## `apicops identify_services_state`
 
-(iss) Identifies the state of any gateway and portal services and returns any associated task ids that are incomplete.  The option is given to carry out additional commands based on the output returned.
+(iss) Identifies the state of any gateway and portal services and returns any associated task ids that are incomplete.
 
 ```
 USAGE
@@ -285,30 +300,44 @@ ALIASES
 
 ## `apicops runbook`
 
-FUTURE! This command allows for a particular runbook scenario to executed.  For scenarios where multiple scripts need to be run it will prompt for inputs / chain script execution
+[FUTURE DO NOT USE] Executes a particular runbook scenario. For scenarios where multiple scripts need to be run it will prompt for inputs / chain script execution
 
 ```
 USAGE
   $ apicops runbook
 ```
 
+## `apicops send_snapshot SERVICEURL`
+
+[FUTURE DO NOT USE] Send a snapshot to the service identified by the url provided.
+
+```
+USAGE
+  $ apicops send_snapshot SERVICEURL
+
+ARGUMENTS
+  SERVICEURL  The portal or gateway service URL
+
+ALIASES
+  $ apicops sendsnapshot
+```
+
 ## `apicops snapshot_builder URL`
 
-(snapshot) Compact the event queue into an up to date snapshot.
+(buildsnapshot) Compact the event queue into an up to date snapshot.
 
 ```
 USAGE
   $ apicops snapshot_builder URL
 
 ARGUMENTS
-  URL  The url of the org and catalog, or org, catalog and gateway service, in the form org/catalog or
-       org/catalog/gatewayService. e.g. 00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000 or
-       00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000
+  URL  The catalog or gateway service, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>, or
+       <org>/<catalog>/<gateway service>
 
 OPTIONS
   -c, --complete  Replay all events instead of just those that are older than the current time.
 
 ALIASES
-  $ apicops snapshot
+  $ apicops buildsnapshot
 ```
 <!-- commandsstop -->
