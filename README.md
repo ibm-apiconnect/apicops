@@ -18,15 +18,16 @@ It is in active development and new versions will be posted here regularly. All 
 Download the latest binary for your operating system from the Releases tab. Note that Linux and Mac will require you to run chmod +x on the downloaded file before you can execute it.
 
 # Requirements
-In order to run `apicops` you need to have `kubectl` installed locally.
-Then set the `KUBECONFIG` variable to point to your kubeconfig file and `apicops` will pick it up from there.
+In order to run `apicops` you need to have `kubectl` or something that implements the same CLI as `kubectl`, such as `oc` installed locally. If you aren't using `kubectl` then set the environment variable APICOPS_K8SCLIENT to the name of the Kubernetes client binary, such as `oc`.
+
+Then set the `KUBECONFIG` environment variable to point to your kubeconfig file and `apicops` will pick it up from there.
 
 ```sh-session
 $ export KUBECONFIG=/home/user/my.kubeconfig
 $ apicops
 ```
 
-If running inside an API Connect OVA file then run `apicops` as root (`sudo su -`) and it will automatically pick up the kubeconfig.
+If running inside an API Connect OVA file then run `apicops` as root (`sudo -i`) and it will automatically pick up the kubeconfig.
 
 # Usage
 <!-- usage -->
@@ -35,7 +36,7 @@ $ npm install -g apicops
 $ apicops COMMAND
 running command...
 $ apicops (-v|--version|version)
-apicops/0.1.26 linux-x64 node-v10.16.3
+apicops/0.1.29 linux-x64 node-v10.16.3
 $ apicops --help [COMMAND]
 USAGE
   $ apicops COMMAND
@@ -45,6 +46,7 @@ USAGE
 # Commands
 <!-- commands -->
 * [`apicops adjust_grace_period PERIOD`](#apicops-adjust_grace_period-period)
+* [`apicops clean_oauth_shared_secret URL`](#apicops-clean_oauth_shared_secret-url)
 * [`apicops cleanup_locks`](#apicops-cleanup_locks)
 * [`apicops custom_script SCRIPT [PARAMS]`](#apicops-custom_script-script-params)
 * [`apicops fix_orphan_webhooks`](#apicops-fix_orphan_webhooks)
@@ -52,6 +54,7 @@ USAGE
 * [`apicops fix_snapshot_webhook CATALOG`](#apicops-fix_snapshot_webhook-catalog)
 * [`apicops get_catalog [CATALOG]`](#apicops-get_catalog-catalog)
 * [`apicops get_configured_gateway_service [GATEWAY]`](#apicops-get_configured_gateway_service-gateway)
+* [`apicops get_gateway_service [GATEWAY]`](#apicops-get_gateway_service-gateway)
 * [`apicops get_org [ORG]`](#apicops-get_org-org)
 * [`apicops get_snapshot_payload_gw_service URL`](#apicops-get_snapshot_payload_gw_service-url)
 * [`apicops get_snapshot_webhook URL`](#apicops-get_snapshot_webhook-url)
@@ -77,6 +80,22 @@ ARGUMENTS
 
 ALIASES
   $ apicops grace
+```
+
+## `apicops clean_oauth_shared_secret URL`
+
+(cleanoauth) Clean the shared OAuth secret for the given catalog and gateway service.
+
+```
+USAGE
+  $ apicops clean_oauth_shared_secret URL
+
+ARGUMENTS
+  URL  The catalog and gateway service, identified via name or UUID, in the form, <catalog>/<gateway service>, or
+       <org>/<catalog>/<gateway service>
+
+ALIASES
+  $ apicops cleanoauth
 ```
 
 ## `apicops cleanup_locks`
@@ -167,7 +186,7 @@ ALIASES
 
 ## `apicops get_configured_gateway_service [GATEWAY]`
 
-(gateway(s)) With no params lists all configured gateway services, or with a param looks up a specific configured gateway service based on uuid or name
+(configuredgateway(s)) With no params lists all configured gateway services, or with a param looks up a specific configured gateway service based on uuid or name with an optional org/catalog/ in front of the name/uuid
 
 ```
 USAGE
@@ -175,6 +194,22 @@ USAGE
 
 ARGUMENTS
   GATEWAY  The id or name of the configured gateway service
+
+ALIASES
+  $ apicops configuredgateway
+  $ apicops configuredgateways
+```
+
+## `apicops get_gateway_service [GATEWAY]`
+
+(gateway(s)) With no params lists all gateway services, or with a param looks up a specific gateway service based on uuid or name
+
+```
+USAGE
+  $ apicops get_gateway_service [GATEWAY]
+
+ARGUMENTS
+  GATEWAY  The id or name of the gateway service
 
 ALIASES
   $ apicops gateway
