@@ -15,7 +15,7 @@ apicops
 It is in active development and new versions will be posted here regularly. All suggestions, feedback and bug reports are welcome - please feel free to raise an issue in this repository. Please limit the issues to those specific to `apicops` itself - we cannot accept ones about APIC, they have to be raised via the normal IBM Support route.
 
 # Installing
-Download the latest binary for your operating system from the Releases tab. Note that Linux and Mac will require you to run chmod +x on the downloaded file before you can execute it.
+Download the latest binary for your operating system from the Releases tab and rename it to be `apicops`. Note that Linux and Mac will require you to run chmod +x on the downloaded file before you can execute it.
 
 # Requirements
 In order to run `apicops` you need to have `kubectl` or something that implements the same CLI as `kubectl`, such as `oc` installed locally. If you aren't using `kubectl` then set the environment variable APICOPS_K8SCLIENT to the name of the Kubernetes client binary, such as `oc`.
@@ -32,7 +32,6 @@ If running inside an API Connect OVA file then run `apicops` as root (`sudo -i`)
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g apicops
 $ apicops COMMAND
 running command...
 $ apicops (-v|--version|version)
