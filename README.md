@@ -14,6 +14,8 @@ apicops
 
 It is in active development and new versions will be posted here regularly. All suggestions, feedback and bug reports are welcome - please feel free to raise an issue in this repository. Please limit the issues to those specific to `apicops` itself - we cannot accept ones about APIC, they have to be raised via the normal IBM Support route.
 
+Please note this has only been tested against IBM API Connect v2018.4.1.6+.
+
 # Installing
 Download the latest binary for your operating system from the Releases tab and rename it to be `apicops`. Note that Linux and Mac will require you to run chmod +x on the downloaded file before you can execute it.
 
