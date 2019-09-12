@@ -20,6 +20,8 @@ Download the latest binary for your operating system from the Releases tab and r
 # Requirements
 In order to run `apicops` you need to have `kubectl` or something that implements the same CLI as `kubectl`, such as `oc` installed locally. If you aren't using `kubectl` then set the environment variable APICOPS_K8SCLIENT to the name of the Kubernetes client binary, such as `oc`.
 
+If using the openshift client (`oc`) then v4.1.x or greater is required (even if using v3.x openshift cluster).
+
 Then set the `KUBECONFIG` environment variable to point to your kubeconfig file and `apicops` will pick it up from there.
 
 ```sh-session
