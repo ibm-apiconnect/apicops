@@ -36,10 +36,11 @@ If running inside an API Connect OVA file then run `apicops` as root (`sudo -i`)
 # Usage
 <!-- usage -->
 ```sh-session
+$ npm install -g apicops
 $ apicops COMMAND
 running command...
 $ apicops (-v|--version|version)
-apicops/0.1.29 linux-x64 node-v10.16.3
+apicops/0.1.46 linux-x64 node-v10.16.3
 $ apicops --help [COMMAND]
 USAGE
   $ apicops COMMAND
@@ -49,26 +50,38 @@ USAGE
 # Commands
 <!-- commands -->
 * [`apicops adjust_grace_period PERIOD`](#apicops-adjust_grace_period-period)
+* [`apicops check_data_integrity_all_index_tables`](#apicops-check_data_integrity_all_index_tables)
+* [`apicops check_data_integrity_all_link_tables`](#apicops-check_data_integrity_all_link_tables)
+* [`apicops clean_cron_jobs`](#apicops-clean_cron_jobs)
 * [`apicops clean_oauth_shared_secret URL`](#apicops-clean_oauth_shared_secret-url)
 * [`apicops cleanup_locks`](#apicops-cleanup_locks)
+* [`apicops cleanup_task_queue`](#apicops-cleanup_task_queue)
+* [`apicops clear_subscriber_queues`](#apicops-clear_subscriber_queues)
+* [`apicops create_gateway_task GATEWAY`](#apicops-create_gateway_task-gateway)
+* [`apicops create_portal_task PORTAL`](#apicops-create_portal_task-portal)
 * [`apicops custom_script SCRIPT [PARAMS]`](#apicops-custom_script-script-params)
 * [`apicops fix_orphan_webhooks`](#apicops-fix_orphan_webhooks)
 * [`apicops fix_snapshot_gw CATALOG`](#apicops-fix_snapshot_gw-catalog)
 * [`apicops fix_snapshot_webhook CATALOG`](#apicops-fix_snapshot_webhook-catalog)
+* [`apicops get_all_webhooks`](#apicops-get_all_webhooks)
 * [`apicops get_catalog [CATALOG]`](#apicops-get_catalog-catalog)
 * [`apicops get_configured_gateway_service [GATEWAY]`](#apicops-get_configured_gateway_service-gateway)
+* [`apicops get_configured_portal_service [PORTAL]`](#apicops-get_configured_portal_service-portal)
 * [`apicops get_gateway_service [GATEWAY]`](#apicops-get_gateway_service-gateway)
 * [`apicops get_org [ORG]`](#apicops-get_org-org)
 * [`apicops get_snapshot_payload_gw_service URL`](#apicops-get_snapshot_payload_gw_service-url)
 * [`apicops get_snapshot_webhook URL`](#apicops-get_snapshot_webhook-url)
+* [`apicops get_subscriber_queue_length SUBSCRIBER`](#apicops-get_subscriber_queue_length-subscriber)
+* [`apicops get_task TASKID`](#apicops-get_task-taskid)
 * [`apicops help [COMMAND]`](#apicops-help-command)
 * [`apicops identify_orphan_webhooks`](#apicops-identify_orphan_webhooks)
 * [`apicops identify_services_state`](#apicops-identify_services_state)
-* [`apicops mark_portal_webhook_subscription_state WEBHOOKSUBSCRIPTIONURL`](#apicops-mark_portal_webhook_subscription_state-webhooksubscriptionurl)
+* [`apicops mark_gateway_catalog_online URLORID`](#apicops-mark_gateway_catalog_online-urlorid)
+* [`apicops mark_portal_webhook_subscription_state URLORID`](#apicops-mark_portal_webhook_subscription_state-urlorid)
 * [`apicops renew_task TASKID`](#apicops-renew_task-taskid)
-* [`apicops runbook`](#apicops-runbook)
-* [`apicops send_snapshot SERVICEURL`](#apicops-send_snapshot-serviceurl)
+* [`apicops send_snapshot SERVICE`](#apicops-send_snapshot-service)
 * [`apicops snapshot_builder URL`](#apicops-snapshot_builder-url)
+* [`apicops snapshot_validator2 CATALOG`](#apicops-snapshot_validator2-catalog)
 
 ## `apicops adjust_grace_period PERIOD`
 
@@ -83,6 +96,42 @@ ARGUMENTS
 
 ALIASES
   $ apicops grace
+```
+
+## `apicops check_data_integrity_all_index_tables`
+
+(checkdataindexes) Checks inconsistencies between the main and index tables (data available in main table and not present in index table. Similarly data present in index table but not in main table).
+
+```
+USAGE
+  $ apicops check_data_integrity_all_index_tables
+
+ALIASES
+  $ apicops checkdataindexes
+```
+
+## `apicops check_data_integrity_all_link_tables`
+
+(checkdatalinks) Checks inconsistencies between the link tables and the corresponding index tables.
+
+```
+USAGE
+  $ apicops check_data_integrity_all_link_tables
+
+ALIASES
+  $ apicops checkdatalinks
+```
+
+## `apicops clean_cron_jobs`
+
+(cronjobs) Recreate the apim cron jobs.
+
+```
+USAGE
+  $ apicops clean_cron_jobs
+
+ALIASES
+  $ apicops cronjobs
 ```
 
 ## `apicops clean_oauth_shared_secret URL`
@@ -103,14 +152,68 @@ ALIASES
 
 ## `apicops cleanup_locks`
 
-(locks) Clears out any invalid transaction locks.
+(cleanlocks) Clears out any invalid transaction locks.
 
 ```
 USAGE
   $ apicops cleanup_locks
 
 ALIASES
-  $ apicops locks
+  $ apicops cleanlocks
+```
+
+## `apicops cleanup_task_queue`
+
+(cleantasks) Clear the task queue and then recreate the apim cron jobs.
+
+```
+USAGE
+  $ apicops cleanup_task_queue
+
+ALIASES
+  $ apicops cleantasks
+```
+
+## `apicops clear_subscriber_queues`
+
+(clearsubqueues) Clears out all subscriber queues.
+
+```
+USAGE
+  $ apicops clear_subscriber_queues
+
+ALIASES
+  $ apicops clearsubqueues
+```
+
+## `apicops create_gateway_task GATEWAY`
+
+(creategatewaytask) Creates a snapshot task for the specified gateway.
+
+```
+USAGE
+  $ apicops create_gateway_task GATEWAY
+
+ARGUMENTS
+  GATEWAY  The configured gateway service ID or URL.
+
+ALIASES
+  $ apicops creategatewaytask
+```
+
+## `apicops create_portal_task PORTAL`
+
+(createportaltask) Creates a snapshot task for the specified portal.
+
+```
+USAGE
+  $ apicops create_portal_task PORTAL
+
+ARGUMENTS
+  PORTAL  The configured portal service ID or URL.
+
+ALIASES
+  $ apicops createportaltask
 ```
 
 ## `apicops custom_script SCRIPT [PARAMS]`
@@ -171,6 +274,18 @@ ALIASES
   $ apicops fixsnapshotwebhook
 ```
 
+## `apicops get_all_webhooks`
+
+(getwebhooks) Lists all webhooks currently in the database.
+
+```
+USAGE
+  $ apicops get_all_webhooks
+
+ALIASES
+  $ apicops getwebhooks
+```
+
 ## `apicops get_catalog [CATALOG]`
 
 (catalog(s)) With no params lists all catalogs, or with a param looks up a specific catalog based on uuid or name
@@ -201,6 +316,22 @@ ARGUMENTS
 ALIASES
   $ apicops configuredgateway
   $ apicops configuredgateways
+```
+
+## `apicops get_configured_portal_service [PORTAL]`
+
+(configuredportal(s)) With no params lists all configured portal services, or with a param looks up a specific configured portal service based on uuid or name with an optional org/catalog/ in front of the name/uuid
+
+```
+USAGE
+  $ apicops get_configured_portal_service [PORTAL]
+
+ARGUMENTS
+  PORTAL  The id or name of the configured portal service
+
+ALIASES
+  $ apicops configuredportal
+  $ apicops configuredportals
 ```
 
 ## `apicops get_gateway_service [GATEWAY]`
@@ -266,6 +397,37 @@ ALIASES
   $ apicops checksnapshotwebhook
 ```
 
+## `apicops get_subscriber_queue_length SUBSCRIBER`
+
+(subqueuelength) Shows the length of the specified subscriber queue.
+
+```
+USAGE
+  $ apicops get_subscriber_queue_length SUBSCRIBER
+
+ARGUMENTS
+  SUBSCRIBER  The id or name of the configured gateway service or portal service. If not unique you can prefix it with
+              org/catalog or just catalog, where org and catalog can be names or uuids.
+
+ALIASES
+  $ apicops subqueuelength
+```
+
+## `apicops get_task TASKID`
+
+(gettask) Dumps out the task identified by taskId.
+
+```
+USAGE
+  $ apicops get_task TASKID
+
+ARGUMENTS
+  TASKID  The id of the task to show.
+
+ALIASES
+  $ apicops gettask
+```
+
 ## `apicops help [COMMAND]`
 
 display help for apicops
@@ -297,29 +459,45 @@ ALIASES
 
 ## `apicops identify_services_state`
 
-(iss) Identifies the state of any gateway and portal services and returns any associated task ids that are incomplete.
+(iss) Identifies the state of any gateway and portal services and returns any associated task ids that are incomplete. Can output compact or beautified and text or JSON.
 
 ```
 USAGE
   $ apicops identify_services_state
 
 OPTIONS
-  -c, --compact  Use a compact output.
+  -e, --embellish  Output a table per service instead of single lines. In JSON mode beautify the JSON.
+  -j, --json       Output as raw JSON instead of lines/tables.
 
 ALIASES
   $ apicops iss
 ```
 
-## `apicops mark_portal_webhook_subscription_state WEBHOOKSUBSCRIPTIONURL`
+## `apicops mark_gateway_catalog_online URLORID`
 
-(markportalsub) Update the state of the given webhook subscription record to offline_configured.
+(markgatewaysub) Update the state of the given gateway webhook subscription record to online.
 
 ```
 USAGE
-  $ apicops mark_portal_webhook_subscription_state WEBHOOKSUBSCRIPTIONURL
+  $ apicops mark_gateway_catalog_online URLORID
 
 ARGUMENTS
-  WEBHOOKSUBSCRIPTIONURL  The url of the webhook subscription record to update the state on
+  URLORID  The "Webhook URL" of the gateway or just the uuid for the configured gateway service from "apicops iss -c"
+
+ALIASES
+  $ apicops markgatewaysub
+```
+
+## `apicops mark_portal_webhook_subscription_state URLORID`
+
+(markportalsub) Update the state of the given portal webhook subscription record to offline_configured.
+
+```
+USAGE
+  $ apicops mark_portal_webhook_subscription_state URLORID
+
+ARGUMENTS
+  URLORID  The "Webhook URL" of the portal or just the uuid for the configured portal service from "apicops iss -c"
 
 ALIASES
   $ apicops markportalsub
@@ -327,7 +505,7 @@ ALIASES
 
 ## `apicops renew_task TASKID`
 
-(task) Re-triggers the provided task id by setting its state to 'new' so that it gets picked up for processing again.
+(renewtask) Re-triggers the provided task id by setting its state to 'new' so that it gets picked up for processing again.
 
 ```
 USAGE
@@ -337,28 +515,19 @@ ARGUMENTS
   TASKID  The id of the task to renew
 
 ALIASES
-  $ apicops task
+  $ apicops renewtask
 ```
 
-## `apicops runbook`
+## `apicops send_snapshot SERVICE`
 
-[FUTURE DO NOT USE] Executes a particular runbook scenario. For scenarios where multiple scripts need to be run it will prompt for inputs / chain script execution
-
-```
-USAGE
-  $ apicops runbook
-```
-
-## `apicops send_snapshot SERVICEURL`
-
-[FUTURE DO NOT USE] Send a snapshot to the service identified by the url provided.
+(sendsnapshot) Send a snapshot to the service identified by the UUID provided. Note that before sending the snapshot the entire task queue will be cleared, so if you have any tasks in 'new' or 'inprogress' state etc. then they should either be sorted out first, or you will have to run sendsnapshot for the catalog related to those tasks afterwards.
 
 ```
 USAGE
-  $ apicops send_snapshot SERVICEURL
+  $ apicops send_snapshot SERVICE
 
 ARGUMENTS
-  SERVICEURL  The portal or gateway service URL
+  SERVICE  The portal or gateway service UUID
 
 ALIASES
   $ apicops sendsnapshot
@@ -373,13 +542,33 @@ USAGE
   $ apicops snapshot_builder URL
 
 ARGUMENTS
-  URL  The catalog or gateway service, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>, or
-       <org>/<catalog>/<gateway service>
+  URL  The catalog or gateway service, identified via name in the form, <catalog>, or <org>/<catalog>, or
+       <org>/<catalog>/<gateway service>, or by UUID in the form: <catalog>, or <gateway>. To list the catalogs run the
+       catalogs command, to list the configured gateways, run the configuredgateways command.
 
 OPTIONS
   -c, --complete  Replay all events instead of just those that are older than the current time.
 
 ALIASES
   $ apicops buildsnapshot
+```
+
+## `apicops snapshot_validator2 CATALOG`
+
+(validatesnapshot) Validate the snapshots for a catalog, for the portal or the gateway, or both.
+
+```
+USAGE
+  $ apicops snapshot_validator2 CATALOG
+
+ARGUMENTS
+  CATALOG  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
+
+OPTIONS
+  -g, --gateway  Validate the gateway snapshots for the catalog.
+  -p, --portal   Validate the portal snapshots for the catalog.
+
+ALIASES
+  $ apicops validatesnapshot
 ```
 <!-- commandsstop -->
