@@ -34,9 +34,7 @@ $ apicops
 If running inside an API Connect OVA file then run `apicops` as root (`sudo -i`) and it will automatically pick up the kubeconfig.
 
 # Usage
-<!-- usage -->
 ```sh-session
-$ npm install -g apicops
 $ apicops COMMAND
 running command...
 $ apicops (-v|--version|version)
@@ -46,7 +44,6 @@ USAGE
   $ apicops COMMAND
 ...
 ```
-<!-- usagestop -->
 # Commands
 <!-- commands -->
 * [`apicops adjust_grace_period PERIOD`](#apicops-adjust_grace_period-period)
