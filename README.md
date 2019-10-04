@@ -59,30 +59,17 @@ USAGE
 ```
 # Commands
 <!-- commands -->
-* [`apicops catalog:get CATALOG`](#apicops-catalogget-catalog)
-* [`apicops catalog:list`](#apicops-cataloglist)
 * [`apicops catalogs:get CATALOG`](#apicops-catalogsget-catalog)
 * [`apicops catalogs:list`](#apicops-catalogslist)
-* [`apicops cron-job:recreate`](#apicops-cron-jobrecreate)
 * [`apicops cron-jobs:recreate`](#apicops-cron-jobsrecreate)
 * [`apicops custom:run SCRIPT [PARAMS]`](#apicops-customrun-script-params)
 * [`apicops grace-period:get`](#apicops-grace-periodget)
 * [`apicops grace-period:set PERIOD`](#apicops-grace-periodset-period)
 * [`apicops help [COMMAND]`](#apicops-help-command)
-* [`apicops lock:delete-expired`](#apicops-lockdelete-expired)
 * [`apicops locks:delete-expired`](#apicops-locksdelete-expired)
 * [`apicops oauth-secret:fix URL`](#apicops-oauth-secretfix-url)
-* [`apicops organisation:get ORG`](#apicops-organisationget-org)
-* [`apicops organisation:list`](#apicops-organisationlist)
 * [`apicops organisations:get ORG`](#apicops-organisationsget-org)
 * [`apicops organisations:list`](#apicops-organisationslist)
-* [`apicops service:get-configured-gateway GATEWAY`](#apicops-serviceget-configured-gateway-gateway)
-* [`apicops service:get-configured-portal PORTAL`](#apicops-serviceget-configured-portal-portal)
-* [`apicops service:get-gateway GATEWAY`](#apicops-serviceget-gateway-gateway)
-* [`apicops service:identify-state`](#apicops-serviceidentify-state)
-* [`apicops service:list-configured-gateway`](#apicops-servicelist-configured-gateway)
-* [`apicops service:list-configured-portal`](#apicops-servicelist-configured-portal)
-* [`apicops service:list-gateways`](#apicops-servicelist-gateways)
 * [`apicops services:get-configured-gateway GATEWAY`](#apicops-servicesget-configured-gateway-gateway)
 * [`apicops services:get-configured-portal PORTAL`](#apicops-servicesget-configured-portal-portal)
 * [`apicops services:get-gateway GATEWAY`](#apicops-servicesget-gateway-gateway)
@@ -90,13 +77,6 @@ USAGE
 * [`apicops services:list-configured-gateway`](#apicops-serviceslist-configured-gateway)
 * [`apicops services:list-configured-portal`](#apicops-serviceslist-configured-portal)
 * [`apicops services:list-gateways`](#apicops-serviceslist-gateways)
-* [`apicops snapshot:build URL`](#apicops-snapshotbuild-url)
-* [`apicops snapshot:check-invalid-products URL`](#apicops-snapshotcheck-invalid-products-url)
-* [`apicops snapshot:check-invalid-products-gateway URL`](#apicops-snapshotcheck-invalid-products-gateway-url)
-* [`apicops snapshot:fix-invalid-products CATALOG`](#apicops-snapshotfix-invalid-products-catalog)
-* [`apicops snapshot:fix-invalid-products-gateway CATALOG`](#apicops-snapshotfix-invalid-products-gateway-catalog)
-* [`apicops snapshot:send SERVICE`](#apicops-snapshotsend-service)
-* [`apicops snapshot:validate CATALOG`](#apicops-snapshotvalidate-catalog)
 * [`apicops snapshots:build URL`](#apicops-snapshotsbuild-url)
 * [`apicops snapshots:check-invalid-products URL`](#apicops-snapshotscheck-invalid-products-url)
 * [`apicops snapshots:check-invalid-products-gateway URL`](#apicops-snapshotscheck-invalid-products-gateway-url)
@@ -104,75 +84,22 @@ USAGE
 * [`apicops snapshots:fix-invalid-products-gateway CATALOG`](#apicops-snapshotsfix-invalid-products-gateway-catalog)
 * [`apicops snapshots:send SERVICE`](#apicops-snapshotssend-service)
 * [`apicops snapshots:validate CATALOG`](#apicops-snapshotsvalidate-catalog)
-* [`apicops space:get SPACE`](#apicops-spaceget-space)
-* [`apicops space:list`](#apicops-spacelist)
 * [`apicops spaces:get SPACE`](#apicops-spacesget-space)
 * [`apicops spaces:list`](#apicops-spaceslist)
-* [`apicops subscriber-queue:clear`](#apicops-subscriber-queueclear)
-* [`apicops subscriber-queue:get-length SUBSCRIBER`](#apicops-subscriber-queueget-length-subscriber)
 * [`apicops subscriber-queues:clear`](#apicops-subscriber-queuesclear)
 * [`apicops subscriber-queues:get-length SUBSCRIBER`](#apicops-subscriber-queuesget-length-subscriber)
-* [`apicops table:check-index`](#apicops-tablecheck-index)
-* [`apicops table:check-link`](#apicops-tablecheck-link)
 * [`apicops tables:check-index`](#apicops-tablescheck-index)
 * [`apicops tables:check-link`](#apicops-tablescheck-link)
 * [`apicops task-queue:clear`](#apicops-task-queueclear)
-* [`apicops task:create-gateway GATEWAY`](#apicops-taskcreate-gateway-gateway)
-* [`apicops task:create-portal PORTAL`](#apicops-taskcreate-portal-portal)
-* [`apicops task:get TASKID`](#apicops-taskget-taskid)
-* [`apicops task:renew TASKID`](#apicops-taskrenew-taskid)
 * [`apicops tasks:create-gateway GATEWAY`](#apicops-taskscreate-gateway-gateway)
 * [`apicops tasks:create-portal PORTAL`](#apicops-taskscreate-portal-portal)
 * [`apicops tasks:get TASKID`](#apicops-tasksget-taskid)
 * [`apicops tasks:renew TASKID`](#apicops-tasksrenew-taskid)
-* [`apicops webhook-subscription:check-orphans`](#apicops-webhook-subscriptioncheck-orphans)
-* [`apicops webhook-subscription:delete-orphans`](#apicops-webhook-subscriptiondelete-orphans)
-* [`apicops webhook-subscription:list`](#apicops-webhook-subscriptionlist)
-* [`apicops webhook-subscription:mark-gateway URLORID`](#apicops-webhook-subscriptionmark-gateway-urlorid)
-* [`apicops webhook-subscription:mark-portal URLORID`](#apicops-webhook-subscriptionmark-portal-urlorid)
 * [`apicops webhook-subscriptions:check-orphans`](#apicops-webhook-subscriptionscheck-orphans)
 * [`apicops webhook-subscriptions:delete-orphans`](#apicops-webhook-subscriptionsdelete-orphans)
 * [`apicops webhook-subscriptions:list`](#apicops-webhook-subscriptionslist)
 * [`apicops webhook-subscriptions:mark-gateway URLORID`](#apicops-webhook-subscriptionsmark-gateway-urlorid)
 * [`apicops webhook-subscriptions:mark-portal URLORID`](#apicops-webhook-subscriptionsmark-portal-urlorid)
-
-## `apicops catalog:get CATALOG`
-
-(cat) Looks up a specific catalog based on uuid or name
-
-```
-USAGE
-  $ apicops catalog:get CATALOG
-
-ARGUMENTS
-  CATALOG  The id or name of the catalog
-
-ALIASES
-  $ apicops cat
-
-EXAMPLES
-  $ apicops cat 4eab42d5-6ba8-4e68-ac87-44ff229db677          # Get a catalog by UUID
-  $ apicops cat cbd062ad-f04c-44cd-afae-dd6a9247309c:sandbox  # Get a catalog using the org UUID and catalog name
-  $ apicops catalogs:get myuniqueorg/stuff                    # Get a catalog using the org name and catalog name
-  $ apicops catalogs:get myuniquecat                          # Get a catalog using the unique catalog name
-  $ apicops catalogs:get sandbox                              # Get all catalogs named sandbox
-```
-
-## `apicops catalog:list`
-
-(cats) Lists all catalogs
-
-```
-USAGE
-  $ apicops catalog:list
-
-ALIASES
-  $ apicops cats
-
-EXAMPLES
-  $ apicops catalogs:list  # List all catalogs
-  $ apicops cats           # List all catalogs
-```
 
 ## `apicops catalogs:get CATALOG`
 
@@ -210,22 +137,6 @@ ALIASES
 EXAMPLES
   $ apicops catalogs:list  # List all catalogs
   $ apicops cats           # List all catalogs
-```
-
-## `apicops cron-job:recreate`
-
-(cronjobs) Recreate the apim cron jobs
-
-```
-USAGE
-  $ apicops cron-job:recreate
-
-ALIASES
-  $ apicops cronjobs
-
-EXAMPLES
-  $ apicops cron-jobs:recreate  # Recreate the apim cron jobs
-  $ apicops cronjobs            # Recreate the apim cron jobs
 ```
 
 ## `apicops cron-jobs:recreate`
@@ -319,22 +230,6 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0/src/commands/help.ts)_
 
-## `apicops lock:delete-expired`
-
-(deletelocks) Deletes any expired transaction locks
-
-```
-USAGE
-  $ apicops lock:delete-expired
-
-ALIASES
-  $ apicops deletelocks
-
-EXAMPLES
-  $ apicops locks:delete-expired  # Deletes any expired transaction locks
-  $ apicops deletelocks           # Deletes any expired transaction locks
-```
-
 ## `apicops locks:delete-expired`
 
 (deletelocks) Deletes any expired transaction locks
@@ -372,42 +267,6 @@ EXAMPLES
   $ apicops fixoauth myorg/mycatalog/gateway-1             # Fixes the OAuth secret for the given gateway service
 ```
 
-## `apicops organisation:get ORG`
-
-(org) Looks up a specific organisation based on uuid or name
-
-```
-USAGE
-  $ apicops organisation:get ORG
-
-ARGUMENTS
-  ORG  The id or name of the org
-
-ALIASES
-  $ apicops org
-
-EXAMPLES
-  $ apicops org 4eab42d5-6ba8-4e68-ac87-44ff229db677  # Get an organisation by UUID
-  $ apicops organisations:get myuniqueorg             # Get an organisation using the unique organisation name
-  $ apicops organisations:get org1                    # Get all organisations named org1
-```
-
-## `apicops organisation:list`
-
-(orgs) Lists all organisations
-
-```
-USAGE
-  $ apicops organisation:list
-
-ALIASES
-  $ apicops orgs
-
-EXAMPLES
-  $ apicops organisations:list  # List all organisations
-  $ apicops orgs                # List all organisations
-```
-
 ## `apicops organisations:get ORG`
 
 (org) Looks up a specific organisation based on uuid or name
@@ -442,139 +301,6 @@ ALIASES
 EXAMPLES
   $ apicops organisations:list  # List all organisations
   $ apicops orgs                # List all organisations
-```
-
-## `apicops service:get-configured-gateway GATEWAY`
-
-(configuredgateway) Looks up a specific configured gateway service based on uuid or name with an optional org/catalog/ in front of the name/uuid
-
-```
-USAGE
-  $ apicops service:get-configured-gateway GATEWAY
-
-ARGUMENTS
-  GATEWAY  The id or name of the configured gateway service
-
-ALIASES
-  $ apicops configuredgateway
-
-EXAMPLES
-  $ apicops services:get-configured-gateway gateway-1                             # Gets all the configured gateways 
-  with name gateway-1
-  $ apicops configuredgateway myuniqueorg:cat:gateway-1                           # Gets all the configured gateways 
-  with name gateway-1 in catalog cat in organisation myuniqueorg
-  $ apicops configuredgateway cbd062ad-f04c-44cd-afae-dd6a9247309c/gateway-1      # Gets all the configured gateways 
-  with name gateway-1 in catalog with the UUID specified
-  $ apicops services:get-configured-gateway 740caa86-0c4e-4531-a460-3fb70890726e  # Gets the configured gateway with the 
-  UUID specified
-```
-
-## `apicops service:get-configured-portal PORTAL`
-
-(configuredportal) Looks up a specific configured portal service based on uuid or name with an optional org/catalog/ in front of the name/uuid
-
-```
-USAGE
-  $ apicops service:get-configured-portal PORTAL
-
-ARGUMENTS
-  PORTAL  The id or name of the configured portal service
-
-ALIASES
-  $ apicops configuredportal
-
-EXAMPLES
-  $ apicops services:get-configured-portal portal-1                              # Gets all the configured portals with 
-  name portal-1
-  $ apicops configuredportal myuniqueorg:cat:portal-1                            # Gets all the configured portals with 
-  name portal-1 in catalog cat in organisation myuniqueorg
-  $ apicops configuredportal cbd062ad-f04c-44cd-afae-dd6a9247309c/portal-1       # Gets all the configured portals with 
-  name portal-1 in catalog with the UUID specified
-  $ apicops services:get-configured-portal 740caa86-0c4e-4531-a460-3fb70890726e  # Gets the configured portal with the 
-  UUID specified
-```
-
-## `apicops service:get-gateway GATEWAY`
-
-(gateway) Looks up a specific gateway service based on uuid or name
-
-```
-USAGE
-  $ apicops service:get-gateway GATEWAY
-
-ARGUMENTS
-  GATEWAY  The id or name of the gateway service
-
-ALIASES
-  $ apicops gateway
-
-EXAMPLES
-  $ apicops services:get-gateway gateway-1                # Gets the gateway with name gateway-1
-  $ apicops gateway 740caa86-0c4e-4531-a460-3fb70890726e  # Gets the gateway with the UUID specified
-```
-
-## `apicops service:identify-state`
-
-(iss) Identifies the state of any gateway and portal services and returns any associated task ids that are incomplete. Can output compact or beautified and text or JSON
-
-```
-USAGE
-  $ apicops service:identify-state
-
-OPTIONS
-  -e, --embellish  Output a table per service instead of single lines. In JSON mode beautify the JSON
-  -j, --json       Output as raw JSON instead of lines/tables
-
-ALIASES
-  $ apicops iss
-```
-
-## `apicops service:list-configured-gateway`
-
-(configuredgateways) Lists all configured gateway services
-
-```
-USAGE
-  $ apicops service:list-configured-gateway
-
-ALIASES
-  $ apicops configuredgateways
-
-EXAMPLES
-  $ apicops services:list-configured-gateways  # Lists all the configured gateways
-  $ apicops configuredgateways                 # Lists all the configured gateways
-```
-
-## `apicops service:list-configured-portal`
-
-(configuredportals) Lists all configured portal services
-
-```
-USAGE
-  $ apicops service:list-configured-portal
-
-ALIASES
-  $ apicops configuredportals
-
-EXAMPLES
-  $ apicops services:list-configured-portals  # Lists all the configured portals
-  $ apicops configuredportals                 # Lists all the configured portals
-```
-
-## `apicops service:list-gateways`
-
-(gateways) Lists all gateway services
-
-```
-USAGE
-  $ apicops service:list-gateways
-
-ALIASES
-  $ apicops gateways
-
-EXAMPLES
-  $ apicops services:list-gateways  # Lists all the gateways
-  $ apicops gateways                # Lists all the gateways
 ```
 
 ## `apicops services:get-configured-gateway GATEWAY`
@@ -708,179 +434,6 @@ ALIASES
 EXAMPLES
   $ apicops services:list-gateways  # Lists all the gateways
   $ apicops gateways                # Lists all the gateways
-```
-
-## `apicops snapshot:build URL`
-
-(buildsnapshot) Compact the event queue into an up to date snapshot. If a catalog is given then the snapshot is build at the catalog level. If a configured gateway is given then the snapshot is build for that gateway
-
-```
-USAGE
-  $ apicops snapshot:build URL
-
-ARGUMENTS
-  URL  The catalog or configured gateway service, identified via name in the form, <catalog>, or <org>/<catalog>, or
-       <org>/<catalog>/<gateway service>, or by UUID in the form: <catalog>, or <gateway>. To list the catalogs run the
-       catalogs command, to list the configured gateways, run the configuredgateways command
-
-ALIASES
-  $ apicops buildsnapshot
-
-EXAMPLES
-  $ apicops snapshots:build gateway-1                           # Builds a snapshot for the single configured gateway 
-  with the name gateway-1
-  $ apicops buildsnapshot 740caa86-0c4e-4531-a460-3fb70890726e  # Builds a snapshot for the catalog with the UUID 
-  specified
-  $ apicops buildsnapshot cbd062ad-f04c-44cd-afae-dd6a9247309c  # Builds a snapshot for the gateway with the UUID 
-  specified
-  $ apicops snapshots:build myuniqueorg/sandbox                 # Builds a snapshot for the sandbox catalog of the 
-  myuniqueorg organisation
-  $ apicops buildsnapshot myuniqueorg/sandbox/gateway-2         # Builds a snapshot for gateway-2 of the snapshot 
-  catalog of the myuniqueorg organisation
-```
-
-## `apicops snapshot:check-invalid-products URL`
-
-(checksnapshot) Identifies bad products in the snapshot payload that have references to invalid apis for the given org and catalog
-
-```
-USAGE
-  $ apicops snapshot:check-invalid-products URL
-
-ARGUMENTS
-  URL  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
-
-ALIASES
-  $ apicops checksnapshot
-
-EXAMPLES
-  $ apicops snapshots:check-invalid-products mycatalog          # Checks if there are invalid products in catalog 
-  mycatalog
-  $ apicops checksnapshot aa592e2f-68b1-4380-ad7c-ac86c932f1e6  # Checks if there are invalid products in identified 
-  catalog
-  $ apicops checksnapshot myorg/mycatalog                       # Checks if there are invalid products in the catalog 
-  mycatalog
-```
-
-## `apicops snapshot:check-invalid-products-gateway URL`
-
-(checksnapshotgateway) Check bad references of the api in api_urls in the product payload of the snapshot for the first configured gateway service for the given catalog
-
-```
-USAGE
-  $ apicops snapshot:check-invalid-products-gateway URL
-
-ARGUMENTS
-  URL  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
-
-ALIASES
-  $ apicops checksnapshotgateway
-
-EXAMPLES
-  $ apicops snapshots:check-invalid-products-gateway mycatalog         # Checks if there are invalid products in the 
-  first gateway associated with catalog mycatalog
-  $ apicops checksnapshotgateway aa592e2f-68b1-4380-ad7c-ac86c932f1e6  # Checks if there are invalid products in the 
-  first gateway associated with identified catalog
-  $ apicops checksnapshotgateway myorg/mycatalog                       # Checks if there are invalid products in the 
-  first gateway associated with catalog mycatalog
-```
-
-## `apicops snapshot:fix-invalid-products CATALOG`
-
-(fixsnapshot) Fixes the bad references of the api in api_urls in the product payload of the snapshot for the the given catalog
-
-```
-USAGE
-  $ apicops snapshot:fix-invalid-products CATALOG
-
-ARGUMENTS
-  CATALOG  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
-
-ALIASES
-  $ apicops fixsnapshot
-
-EXAMPLES
-  $ apicops snapshots:fix-invalid-products mycatalog          # Fixes the invalid products in catalog mycatalog
-  $ apicops fixsnapshot aa592e2f-68b1-4380-ad7c-ac86c932f1e6  # Fixes the invalid products in identified catalog
-  $ apicops fixsnapshot myorg/mycatalog                       # Fixes the invalid products in the catalog mycatalog
-```
-
-## `apicops snapshot:fix-invalid-products-gateway CATALOG`
-
-(fixsnapshotgateway) Fixes the bad references of the api in api_urls in the product payload of the snapshot for the first configured gateway service for the given catalog
-
-```
-USAGE
-  $ apicops snapshot:fix-invalid-products-gateway CATALOG
-
-ARGUMENTS
-  CATALOG  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
-
-ALIASES
-  $ apicops fixsnapshotgateway
-
-EXAMPLES
-  $ apicops snapshots:fix-invalid-products-gateway mycatalog         # Fixes the invalid products in the first gateway 
-  associated with catalog mycatalog
-  $ apicops fixsnapshotgateway aa592e2f-68b1-4380-ad7c-ac86c932f1e6  # Fixes the invalid products in the first gateway 
-  associated with the identified catalog
-  $ apicops fixsnapshotgateway myorg/mycatalog                       # Fixes the invalid products in the first gateway 
-  associated with catalog mycatalog
-```
-
-## `apicops snapshot:send SERVICE`
-
-(sendsnapshot) Send a snapshot to the service identified by the UUID provided. Note that before sending the snapshot the entire task queue will be cleared, so if you have any tasks in 'new' or 'inprogress' state etc. then they should either be sorted out first, or you will have to run sendsnapshot for the catalog related to those tasks afterwards
-
-```
-USAGE
-  $ apicops snapshot:send SERVICE
-
-ARGUMENTS
-  SERVICE  The portal or gateway service UUID
-
-ALIASES
-  $ apicops sendsnapshot
-
-EXAMPLES
-  $ apicops snapshots:send gateway-1                           # Gets all the configured gateways with name gateway-1
-  $ apicops sendsnapshot 740caa86-0c4e-4531-a460-3fb70890726e  # Builds a snapshot for the catalog with the UUID 
-  specified
-  $ apicops sendsnapshot cbd062ad-f04c-44cd-afae-dd6a9247309c  # Builds a snapshot for the gateway with the UUID 
-  specified
-  $ apicops snapshots:send myuniqueorg/sandbox                 # Builds a snapshot for the sandbox catalog of the 
-  myuniqueorg organisation
-  $ apicops sendsnapshot myuniqueorg/sandbox/gateway-2         # Builds a snapshot for gateway-2 of the snapshot catalog 
-  of the myuniqueorg organisation
-```
-
-## `apicops snapshot:validate CATALOG`
-
-(validatesnapshot) Validate the snapshots for a catalog, for the portal or the gateway, or both
-
-```
-USAGE
-  $ apicops snapshot:validate CATALOG
-
-ARGUMENTS
-  CATALOG  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
-
-OPTIONS
-  -g, --gateway  Validate the gateway snapshots for the catalog
-  -p, --portal   Validate the portal snapshots for the catalog
-
-ALIASES
-  $ apicops validatesnapshot
-
-EXAMPLES
-  $ apicops snapshots:validate -p myuniquecatalog                     # Validates the portal snapshot for the catalog 
-  myuniquecatalog
-  $ apicops snapshots:validate -pg myuniquecatalog                    # Validates the portal and gateway snapshots for 
-  the catalog myuniquecatalog
-  $ apicops snapshots:validate -g myuniquecatalog                     # Validates the gateway snapshot for the catalog 
-  myuniquecatalog
-  $ apicops validatesnapshot -g 740caa86-0c4e-4531-a460-3fb70890726e  # Validates the gateway snapshot for the catalog 
-  identified by the UUID
 ```
 
 ## `apicops snapshots:build URL`
@@ -1056,56 +609,6 @@ EXAMPLES
   identified by the UUID
 ```
 
-## `apicops space:get SPACE`
-
-(sp) Looks up a specific space based on the uuid of the space or name of the space in the format <org_id_or_name>/<catalog_id_or_name>/<space_id_or_name>
-
-```
-USAGE
-  $ apicops space:get SPACE
-
-ARGUMENTS
-  SPACE  [default: ""] The id of the space, or, the name of the space in a particular org and catalog (format
-         <org_id_or_name>/<catalog_id_or_name>/<space_id_or_name>)
-
-OPTIONS
-  -c, --catalogId=catalogId  [default: ""] The id or name of the catalog you want to list the spaces within
-
-ALIASES
-  $ apicops sp
-
-EXAMPLES
-  $ apicops sp 4eab42d5-6ba8-4e68-ac87-44ff229db677                      # Get a space by UUID
-  $ apicops spaces:get myuniquespace                                     # Get a space using the unique space name
-  $ apicops spaces:get org1/cat1/space-1                                 # Get a space by URL
-  $ apicops spaces:get space-1                                           # Get all spaces named space-1
-  $ apicops spaces:get -c cat1 space-1                                   # Get a space named space-1 in catalog cat-1
-  $ apicops sp --catalogId 745c9bab-e0ba-4d34-a284-aa3a28f77a7b space-1  # Get a space named space-1 in the catalog 
-  identified by the UUID
-```
-
-## `apicops space:list`
-
-(sps) Lists all spaces
-
-```
-USAGE
-  $ apicops space:list
-
-OPTIONS
-  -c, --catalogId=catalogId  [default: ""] The id or name of the catalog you want to list the spaces within
-
-ALIASES
-  $ apicops sps
-
-EXAMPLES
-  $ apicops sps                                                   # List all spaces
-  $ apicops spaces:list                                           # List all spaces
-  $ apicops spaces:list -c cat1                                   # List all spaces in catalog cat1
-  $ apicops sps --catalogId 745c9bab-e0ba-4d34-a284-aa3a28f77a7b  # List all spaces in the catalog identified by the 
-  UUID
-```
-
 ## `apicops spaces:get SPACE`
 
 (sp) Looks up a specific space based on the uuid of the space or name of the space in the format <org_id_or_name>/<catalog_id_or_name>/<space_id_or_name>
@@ -1156,47 +659,6 @@ EXAMPLES
   UUID
 ```
 
-## `apicops subscriber-queue:clear`
-
-(clearsubqueue) Clears all subscriber queue
-
-```
-USAGE
-  $ apicops subscriber-queue:clear
-
-ALIASES
-  $ apicops clearsubqueues
-
-EXAMPLES
-  $ apicops subscriber-queues:clear  # Clears all items from the subscriber queues
-  $ apicops clearsubqueues           # Clears all items from the subscriber queues
-```
-
-## `apicops subscriber-queue:get-length SUBSCRIBER`
-
-(subqueuelength) Shows the length of the subscriber queue specified
-
-```
-USAGE
-  $ apicops subscriber-queue:get-length SUBSCRIBER
-
-ARGUMENTS
-  SUBSCRIBER  The id or name of the configured gateway service or portal service. If not unique you can prefix it with
-              org/catalog or just catalog, where org and catalog can be names or uuids
-
-ALIASES
-  $ apicops subqueuelength
-
-EXAMPLES
-  $ apicops subscriber-queues:get-length myuniquecatalog/portal-1  # Gets the length of the portal-1 subscriber queue
-  $ apicops subqueuelength aa592e2f-68b1-4380-ad7c-ac86c932f1e6    # Gets the length of the subscriber queue for the 
-  portal service specified by the UUID
-  $ apicops subqueuelength cbd062ad-f04c-44cd-afae-dd6a9247309c    # Gets the length of the subscriber queue for the 
-  gateway service specified by the UUID
-  $ apicops subscriber-queues:get-length unique-portal-1           # Gets the length of the unqiue-portal-1 subscriber 
-  queue
-```
-
 ## `apicops subscriber-queues:clear`
 
 (clearsubqueue) Clears all subscriber queue
@@ -1236,38 +698,6 @@ EXAMPLES
   gateway service specified by the UUID
   $ apicops subscriber-queues:get-length unique-portal-1           # Gets the length of the unqiue-portal-1 subscriber 
   queue
-```
-
-## `apicops table:check-index`
-
-(checkdataindexes) Checks inconsistencies between the main and index tables (data available in main table and not present in index table. Similarly data present in index table but not in main table)
-
-```
-USAGE
-  $ apicops table:check-index
-
-ALIASES
-  $ apicops checktablesindex
-
-EXAMPLES
-  $ apicops tables:check-index  # Checks the index tables for inconsistencies
-  $ apicops checktablesindex    # Checks the index tables for inconsistencies
-```
-
-## `apicops table:check-link`
-
-(checkdatalinks) Checks inconsistencies between the link tables and the corresponding index tables
-
-```
-USAGE
-  $ apicops table:check-link
-
-ALIASES
-  $ apicops checktableslink
-
-EXAMPLES
-  $ apicops tables:check-link  # Checks the link tables for inconsistencies
-  $ apicops checktableslink    # Checks the link tables for inconsistencies
 ```
 
 ## `apicops tables:check-index`
@@ -1316,90 +746,6 @@ ALIASES
 EXAMPLES
   $ apicops task-queue:clear  # Clears all tasks from task queue
   $ apicops cleartasks        # Clears all tasks from task queue
-```
-
-## `apicops task:create-gateway GATEWAY`
-
-(creategatewaytask) Creates a snapshot task for the specified gateway
-
-```
-USAGE
-  $ apicops task:create-gateway GATEWAY
-
-ARGUMENTS
-  GATEWAY  The configured gateway service ID or URL
-
-ALIASES
-  $ apicops creategatewaytask
-
-EXAMPLES
-  $ apicops creategatewaytask 4eab42d5-6ba8-4e68-ac87-44ff229db677  # Creates a snapshot task for the gateway specified 
-  by the UUID
-  $ apicops tasks:create-gateway org/cat/gateway-1                  # Creates a snapshot task for the gateway specified 
-  by the url
-  $ apicops tasks:create-gateway unique-cat:gateway-1               # Creates a snapshot task for the gateway specified 
-  by the url
-```
-
-## `apicops task:create-portal PORTAL`
-
-(createportaltask) Creates a snapshot task for the specified portal
-
-```
-USAGE
-  $ apicops task:create-portal PORTAL
-
-ARGUMENTS
-  PORTAL  The configured portal service ID or URL
-
-ALIASES
-  $ apicops createportaltask
-
-EXAMPLES
-  $ apicops createportaltask 4eab42d5-6ba8-4e68-ac87-44ff229db677  # Creates a snapshot task for the portal specified by 
-  the UUID
-  $ apicops tasks:create-portal org/cat/portal-1                   # Creates a snapshot task for the portal specified by 
-  the url
-  $ apicops tasks:create-portal unique-cat:portal-1                # Creates a snapshot task for the portal specified by 
-  the url
-```
-
-## `apicops task:get TASKID`
-
-(gettask) Dumps out the task identified by taskId
-
-```
-USAGE
-  $ apicops task:get TASKID
-
-ARGUMENTS
-  TASKID  The id of the task to show
-
-ALIASES
-  $ apicops gettask
-
-EXAMPLES
-  $ apicops gettask 4eab42d5-6ba8-4e68-ac87-44ff229db677    # Get a task by UUID
-  $ apicops tasks:get 4eab42d5-6ba8-4e68-ac87-44ff229db677  # Get a task by UUID
-```
-
-## `apicops task:renew TASKID`
-
-(renewtask) Re-triggers the provided task id by setting its state to 'new' so that it gets picked up for processing again
-
-```
-USAGE
-  $ apicops task:renew TASKID
-
-ARGUMENTS
-  TASKID  The id of the task to renew
-
-ALIASES
-  $ apicops renewtask
-
-EXAMPLES
-  $ apicops renewtask 4eab42d5-6ba8-4e68-ac87-44ff229db677    # Renews a task by UUID
-  $ apicops tasks:renew 4eab42d5-6ba8-4e68-ac87-44ff229db677  # Renews a task by UUID
 ```
 
 ## `apicops tasks:create-gateway GATEWAY`
@@ -1484,100 +830,6 @@ ALIASES
 EXAMPLES
   $ apicops renewtask 4eab42d5-6ba8-4e68-ac87-44ff229db677    # Renews a task by UUID
   $ apicops tasks:renew 4eab42d5-6ba8-4e68-ac87-44ff229db677  # Renews a task by UUID
-```
-
-## `apicops webhook-subscription:check-orphans`
-
-(checkorphans) Lists any orphaned webhook subscriptions
-
-```
-USAGE
-  $ apicops webhook-subscription:check-orphans
-
-ALIASES
-  $ apicops checkorphans
-
-EXAMPLES
-  $ apicops webhook-subscriptions:check-orphans  # List any orphaned webhook subscriptions
-  $ apicops checkorphans                         # List any orphaned webhook subscriptions
-```
-
-## `apicops webhook-subscription:delete-orphans`
-
-(deleteorphans) Deletes any orphaned webhook subscriptions
-
-```
-USAGE
-  $ apicops webhook-subscription:delete-orphans
-
-ALIASES
-  $ apicops deleteorphans
-
-EXAMPLES
-  $ apicops webhook-subscriptions:delete-orphans  # Deletes any orphaned webhook subscriptions
-  $ apicops deleteorphans                         # Deletes any orphaned webhook subscriptions
-```
-
-## `apicops webhook-subscription:list`
-
-(webhooksubscriptions) Lists all webhook subscriptions
-
-```
-USAGE
-  $ apicops webhook-subscription:list
-
-ALIASES
-  $ apicops webhooksubs
-
-EXAMPLES
-  $ apicops webhook-subscriptions:list  # List all webhook subscriptions
-  $ apicops webhooksubs                 # List all webhook subscriptions
-```
-
-## `apicops webhook-subscription:mark-gateway URLORID`
-
-(markgatewaysub) Update the state of the given gateway webhook subscription record to online
-
-```
-USAGE
-  $ apicops webhook-subscription:mark-gateway URLORID
-
-ARGUMENTS
-  URLORID  The "Webhook URL" of the gateway or just the uuid for the configured gateway service from "apicops iss"
-
-ALIASES
-  $ apicops markgatewaysub
-
-EXAMPLES
-  $ apicops markgatewaysub 843d3499-da6b-4acd-a265-3753d7a71668   # Update the subcsription to online for the gateway 
-  identified by UUID
-  $ apicops webhook-subscriptions:mark-gateway org/cat/gateway-1  # Update the subcsription to online for the gateway 
-  identified by the URL
-  $ apicops markgatewaysub myuniquecat:gateway-1                  # Update the subcsription to online for the gateway 
-  identified by the URL
-```
-
-## `apicops webhook-subscription:mark-portal URLORID`
-
-(markportalsub) Update the state of the given portal webhook subscription record to offline_configured
-
-```
-USAGE
-  $ apicops webhook-subscription:mark-portal URLORID
-
-ARGUMENTS
-  URLORID  The "Webhook URL" of the portal or just the uuid for the configured portal service from "apicops iss"
-
-ALIASES
-  $ apicops markportalsub
-
-EXAMPLES
-  $ apicops markportalsub 843d3499-da6b-4acd-a265-3753d7a71668  # Update the subcsription to offline_configured for the 
-  portal identified by UUID
-  $ apicops webhook-subscriptions:mark-portal org/cat/portal-1  # Update the subcsription to offline_configured for the 
-  portal identified by the URL
-  $ apicops markportalsub myuniquecat:portal-1                  # Update the subcsription to offline_configured for the 
-  portal identified by the URL
 ```
 
 ## `apicops webhook-subscriptions:check-orphans`
