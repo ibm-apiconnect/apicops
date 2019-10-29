@@ -16,6 +16,12 @@ It is in active development and new versions will be posted here regularly. All 
 
 Please note this has only been tested against IBM API Connect v2018.4.1.6+.
 
+# Warning
+
+Unless directed by IBM, only run commands that are also described in the Knowledge Center:
+
+https://www.ibm.com/support/knowledgecenter/en/SSMNED_2018/com.ibm.apic.install.doc/capim_apicops_overview.html: 
+
 # Installing
 Download the latest binary for your operating system from the Releases tab and rename it to be `apicops`. Note that Linux and Mac will require you to run chmod +x on the downloaded file before you can execute it.
 
