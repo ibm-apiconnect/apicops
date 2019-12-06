@@ -3,6 +3,7 @@ apicops
 
 <!-- toc -->
 * [About](#about)
+* [Warning](#warning)
 * [Installing](#installing)
 * [Requirements](#requirements)
 * [Usage](#usage)
@@ -21,6 +22,7 @@ Please note this has only been tested against IBM API Connect v2018.4.1.6+.
 Unless directed by IBM, only run commands that are also described in the Knowledge Center:
 
 https://www.ibm.com/support/knowledgecenter/en/SSMNED_2018/com.ibm.apic.install.doc/capim_apicops_overview.html: 
+
 
 # Installing
 Download the latest binary for your operating system from the Releases tab and rename it to be `apicops`. Note that Linux and Mac will require you to run chmod +x on the downloaded file before you can execute it.
@@ -41,7 +43,7 @@ If running inside an API Connect OVA file then run `apicops` as root (`sudo -i`)
 
 ## Setting the target namespace
 
-The `default` namespace for the deployment will be targeted by default.  If your deployment makes use of an alternative namespace then you will need to set this in the relevant context of your kubeconfig file.
+The `default` namespace for the deployment will be targeted by default. If your deployment makes use of an alternative namespace then you will need to set this in the relevant context of your kubeconfig file.
 Your can either edit your kubeconfig file directly and add the namespace property with the desired value to the relevant context.
 Alternatively you can set the namespace for the current context using the following command (where < namespace > is the value you want to set the namespace to):
 ```
@@ -87,7 +89,7 @@ USAGE
 * [`apicops snapshots:check-invalid-products URL`](#apicops-snapshotscheck-invalid-products-url)
 * [`apicops snapshots:check-invalid-products-gateway URL`](#apicops-snapshotscheck-invalid-products-gateway-url)
 * [`apicops snapshots:fix-invalid-products CATALOG`](#apicops-snapshotsfix-invalid-products-catalog)
-* [`apicops snapshots:fix-invalid-products-gateway CATALOG`](#apicops-snapshotsfix-invalid-products-gateway-catalog)
+* [`apicops snapshots:fix-invalid-products-gateway URL`](#apicops-snapshotsfix-invalid-products-gateway-url)
 * [`apicops snapshots:send SERVICE`](#apicops-snapshotssend-service)
 * [`apicops snapshots:validate CATALOG`](#apicops-snapshotsvalidate-catalog)
 * [`apicops spaces:get SPACE`](#apicops-spacesget-space)
@@ -96,10 +98,14 @@ USAGE
 * [`apicops subscriber-queues:get-length SUBSCRIBER`](#apicops-subscriber-queuesget-length-subscriber)
 * [`apicops tables:check-index`](#apicops-tablescheck-index)
 * [`apicops tables:check-link`](#apicops-tablescheck-link)
+* [`apicops tables:get-contents [TABLE] [CHUNKSIZE]`](#apicops-tablesget-contents-table-chunksize)
+* [`apicops tables:list-sizes [KEYSPACE]`](#apicops-tableslist-sizes-keyspace)
+* [`apicops tables:rebuild-indexes [TABLE]`](#apicops-tablesrebuild-indexes-table)
 * [`apicops task-queue:clear`](#apicops-task-queueclear)
 * [`apicops tasks:create-gateway GATEWAY`](#apicops-taskscreate-gateway-gateway)
 * [`apicops tasks:create-portal PORTAL`](#apicops-taskscreate-portal-portal)
 * [`apicops tasks:get TASKID`](#apicops-tasksget-taskid)
+* [`apicops tasks:list`](#apicops-taskslist)
 * [`apicops tasks:renew TASKID`](#apicops-tasksrenew-taskid)
 * [`apicops webhook-subscriptions:check-orphans`](#apicops-webhook-subscriptionscheck-orphans)
 * [`apicops webhook-subscriptions:delete-orphans`](#apicops-webhook-subscriptionsdelete-orphans)
@@ -118,6 +124,10 @@ USAGE
 ARGUMENTS
   CATALOG  The id or name of the catalog
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops cat
 
@@ -129,6 +139,8 @@ EXAMPLES
   $ apicops catalogs:get sandbox                              # Get all catalogs named sandbox
 ```
 
+_See code: [src/commands/catalogs/get.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/catalogs/get.js)_
+
 ## `apicops catalogs:list`
 
 (cats) Lists all catalogs
@@ -136,6 +148,10 @@ EXAMPLES
 ```
 USAGE
   $ apicops catalogs:list
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops cats
@@ -145,6 +161,8 @@ EXAMPLES
   $ apicops cats           # List all catalogs
 ```
 
+_See code: [src/commands/catalogs/list.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/catalogs/list.js)_
+
 ## `apicops cron-jobs:recreate`
 
 (cronjobs) Recreate the apim cron jobs
@@ -153,6 +171,10 @@ EXAMPLES
 USAGE
   $ apicops cron-jobs:recreate
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops cronjobs
 
@@ -160,6 +182,8 @@ EXAMPLES
   $ apicops cron-jobs:recreate  # Recreate the apim cron jobs
   $ apicops cronjobs            # Recreate the apim cron jobs
 ```
+
+_See code: [src/commands/cron-jobs/recreate.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/cron-jobs/recreate.js)_
 
 ## `apicops custom:run SCRIPT [PARAMS]`
 
@@ -175,6 +199,10 @@ ARGUMENTS
   PARAMS  Any parameters to pass to the script. Separate multiple parameters by a space and enclose all parameters with
           spaces in them with "s
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops runcustom
 
@@ -184,6 +212,8 @@ EXAMPLES
   $ apicops runcustom /tmp/s.js one "param two"  # Run a script with 2 parameters
 ```
 
+_See code: [src/commands/custom/run.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/custom/run.js)_
+
 ## `apicops grace-period:get`
 
 (getgrace) Gets the current value for the time between compaction of tombstones
@@ -192,6 +222,10 @@ EXAMPLES
 USAGE
   $ apicops grace-period:get
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops getgrace
 
@@ -199,6 +233,8 @@ EXAMPLES
   $ apicops grace-period:get  # Gets the current grace period
   $ apicops getgrace          # Gets the current grace period
 ```
+
+_See code: [src/commands/grace-period/get.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/grace-period/get.js)_
 
 ## `apicops grace-period:set PERIOD`
 
@@ -211,6 +247,10 @@ USAGE
 ARGUMENTS
   PERIOD  (short|long) Set to "short" to cleanup tombstones every 2 mins, or "long", to cleanup every 3 days
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops setgrace
 
@@ -218,6 +258,8 @@ EXAMPLES
   $ apicops grace-period:set long  # Sets the current grace period to 3 days
   $ apicops setgrace short         # Sets the current grace period to 2 minutes
 ```
+
+_See code: [src/commands/grace-period/set.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/grace-period/set.js)_
 
 ## `apicops help [COMMAND]`
 
@@ -234,7 +276,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.2/src/commands/help.ts)_
 
 ## `apicops locks:delete-expired`
 
@@ -244,6 +286,10 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0
 USAGE
   $ apicops locks:delete-expired
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops deletelocks
 
@@ -251,6 +297,8 @@ EXAMPLES
   $ apicops locks:delete-expired  # Deletes any expired transaction locks
   $ apicops deletelocks           # Deletes any expired transaction locks
 ```
+
+_See code: [src/commands/locks/delete-expired.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/locks/delete-expired.js)_
 
 ## `apicops oauth-secret:fix URL`
 
@@ -264,6 +312,10 @@ ARGUMENTS
   URL  The catalog and gateway service, identified via name or UUID, in the form, <catalog>/<gateway service>, or
        <org>/<catalog>/<gateway service>
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops fixoauth
 
@@ -272,6 +324,8 @@ EXAMPLES
   $ apicops fixoauth 5cec22d4-3c93-44ac-a4c0-750b4a57756c  # Fixes the OAuth secret for the gateway identified by UUID
   $ apicops fixoauth myorg/mycatalog/gateway-1             # Fixes the OAuth secret for the given gateway service
 ```
+
+_See code: [src/commands/oauth-secret/fix.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/oauth-secret/fix.js)_
 
 ## `apicops organisations:get ORG`
 
@@ -284,6 +338,10 @@ USAGE
 ARGUMENTS
   ORG  The id or name of the org
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops org
 
@@ -293,6 +351,8 @@ EXAMPLES
   $ apicops organisations:get org1                    # Get all organisations named org1
 ```
 
+_See code: [src/commands/organisations/get.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/organisations/get.js)_
+
 ## `apicops organisations:list`
 
 (orgs) Lists all organisations
@@ -301,6 +361,10 @@ EXAMPLES
 USAGE
   $ apicops organisations:list
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops orgs
 
@@ -308,6 +372,8 @@ EXAMPLES
   $ apicops organisations:list  # List all organisations
   $ apicops orgs                # List all organisations
 ```
+
+_See code: [src/commands/organisations/list.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/organisations/list.js)_
 
 ## `apicops services:get-configured-gateway GATEWAY`
 
@@ -319,6 +385,10 @@ USAGE
 
 ARGUMENTS
   GATEWAY  The id or name of the configured gateway service
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops configuredgateway
@@ -334,6 +404,8 @@ EXAMPLES
   UUID specified
 ```
 
+_See code: [src/commands/services/get-configured-gateway.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/services/get-configured-gateway.js)_
+
 ## `apicops services:get-configured-portal PORTAL`
 
 (configuredportal) Looks up a specific configured portal service based on uuid or name with an optional org/catalog/ in front of the name/uuid
@@ -344,6 +416,10 @@ USAGE
 
 ARGUMENTS
   PORTAL  The id or name of the configured portal service
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops configuredportal
@@ -359,6 +435,8 @@ EXAMPLES
   UUID specified
 ```
 
+_See code: [src/commands/services/get-configured-portal.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/services/get-configured-portal.js)_
+
 ## `apicops services:get-gateway GATEWAY`
 
 (gateway) Looks up a specific gateway service based on uuid or name
@@ -370,6 +448,10 @@ USAGE
 ARGUMENTS
   GATEWAY  The id or name of the gateway service
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops gateway
 
@@ -377,6 +459,8 @@ EXAMPLES
   $ apicops services:get-gateway gateway-1                # Gets the gateway with name gateway-1
   $ apicops gateway 740caa86-0c4e-4531-a460-3fb70890726e  # Gets the gateway with the UUID specified
 ```
+
+_See code: [src/commands/services/get-gateway.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/services/get-gateway.js)_
 
 ## `apicops services:identify-state`
 
@@ -387,12 +471,17 @@ USAGE
   $ apicops services:identify-state
 
 OPTIONS
-  -e, --embellish  Output a table per service instead of single lines. In JSON mode beautify the JSON
-  -j, --json       Output as raw JSON instead of lines/tables
+  -e, --embellish            Output a table per service instead of single lines. In JSON mode beautify the JSON
+  -j, --json                 Output as raw JSON instead of lines/tables
+
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops iss
 ```
+
+_See code: [src/commands/services/identify-state.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/services/identify-state.js)_
 
 ## `apicops services:list-configured-gateway`
 
@@ -402,6 +491,10 @@ ALIASES
 USAGE
   $ apicops services:list-configured-gateway
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops configuredgateways
 
@@ -409,6 +502,8 @@ EXAMPLES
   $ apicops services:list-configured-gateways  # Lists all the configured gateways
   $ apicops configuredgateways                 # Lists all the configured gateways
 ```
+
+_See code: [src/commands/services/list-configured-gateway.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/services/list-configured-gateway.js)_
 
 ## `apicops services:list-configured-portal`
 
@@ -418,6 +513,10 @@ EXAMPLES
 USAGE
   $ apicops services:list-configured-portal
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops configuredportals
 
@@ -425,6 +524,8 @@ EXAMPLES
   $ apicops services:list-configured-portals  # Lists all the configured portals
   $ apicops configuredportals                 # Lists all the configured portals
 ```
+
+_See code: [src/commands/services/list-configured-portal.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/services/list-configured-portal.js)_
 
 ## `apicops services:list-gateways`
 
@@ -434,6 +535,10 @@ EXAMPLES
 USAGE
   $ apicops services:list-gateways
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops gateways
 
@@ -442,9 +547,11 @@ EXAMPLES
   $ apicops gateways                # Lists all the gateways
 ```
 
+_See code: [src/commands/services/list-gateways.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/services/list-gateways.js)_
+
 ## `apicops snapshots:build URL`
 
-(buildsnapshot) Compact the event queue into an up to date snapshot. If a catalog is given then the snapshot is build at the catalog level. If a configured gateway is given then the snapshot is build for that gateway
+(buildsnapshot) Compact the event queue into an up to date snapshot. If a catalog is given then the snapshot is build at the catalog level. If a configured gateway is given then the snapshot is build for that gateway (FP7 and below)
 
 ```
 USAGE
@@ -454,6 +561,10 @@ ARGUMENTS
   URL  The catalog or configured gateway service, identified via name in the form, <catalog>, or <org>/<catalog>, or
        <org>/<catalog>/<gateway service>, or by UUID in the form: <catalog>, or <gateway>. To list the catalogs run the
        catalogs command, to list the configured gateways, run the configuredgateways command
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops buildsnapshot
@@ -471,9 +582,11 @@ EXAMPLES
   catalog of the myuniqueorg organisation
 ```
 
+_See code: [src/commands/snapshots/build.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/snapshots/build.js)_
+
 ## `apicops snapshots:check-invalid-products URL`
 
-(checksnapshot) Identifies bad products in the snapshot payload that have references to invalid apis for the given org and catalog
+(checksnapshot) Identifies bad products in the snapshot payload that have references to invalid apis for the given org and catalog (FP7 and below)
 
 ```
 USAGE
@@ -481,6 +594,10 @@ USAGE
 
 ARGUMENTS
   URL  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops checksnapshot
@@ -494,32 +611,43 @@ EXAMPLES
   mycatalog
 ```
 
+_See code: [src/commands/snapshots/check-invalid-products.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/snapshots/check-invalid-products.js)_
+
 ## `apicops snapshots:check-invalid-products-gateway URL`
 
-(checksnapshotgateway) Check bad references of the api in api_urls in the product payload of the snapshot for the first configured gateway service for the given catalog
+(checksnapshotgateway) Check bad references of the api in api_urls in the product payload of the snapshot for the first configured gateway service for the given catalog (FP7 and below)
 
 ```
 USAGE
   $ apicops snapshots:check-invalid-products-gateway URL
 
 ARGUMENTS
-  URL  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
+  URL  The gateway(s), identified via gateway UUID, catalog name/uuid in the form, <uuid>, <orgId/catalogId>,
+       <orgName/catalogName>
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops checksnapshotgateway
 
 EXAMPLES
-  $ apicops snapshots:check-invalid-products-gateway mycatalog         # Checks if there are invalid products in the 
-  first gateway associated with catalog mycatalog
-  $ apicops checksnapshotgateway aa592e2f-68b1-4380-ad7c-ac86c932f1e6  # Checks if there are invalid products in the 
-  first gateway associated with identified catalog
-  $ apicops checksnapshotgateway myorg/mycatalog                       # Checks if there are invalid products in the 
-  first gateway associated with catalog mycatalog
+  $ apicops snapshots:check-invalid-products-gateway mycatalog                                   # Checks if there are 
+  invalid products in the gateways associated with catalog mycatalog
+  $ apicops checksnapshotgateway aa592e2f-68b1-4380-ad7c-ac86c932f1e6                            # Checks if there are 
+  invalid products in the gateways associated with identified catalog
+  $ apicops checksnapshotgateway myorg/mycatalog                                                 # Checks if there are 
+  invalid products in the gateways associated with catalog mycatalog
+  $ apicops snapshots:check-invalid-products-gateway a0050e90-cf97-4989-961f-97cee80ad4c3        # Checks if there are 
+  invalid products in the gateway specified
 ```
+
+_See code: [src/commands/snapshots/check-invalid-products-gateway.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/snapshots/check-invalid-products-gateway.js)_
 
 ## `apicops snapshots:fix-invalid-products CATALOG`
 
-(fixsnapshot) Fixes the bad references of the api in api_urls in the product payload of the snapshot for the the given catalog
+(fixsnapshot) Fixes the bad references of the api in api_urls in the product payload of the snapshot for the the given catalog (FP7 and below)
 
 ```
 USAGE
@@ -527,6 +655,10 @@ USAGE
 
 ARGUMENTS
   CATALOG  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops fixsnapshot
@@ -537,32 +669,43 @@ EXAMPLES
   $ apicops fixsnapshot myorg/mycatalog                       # Fixes the invalid products in the catalog mycatalog
 ```
 
-## `apicops snapshots:fix-invalid-products-gateway CATALOG`
+_See code: [src/commands/snapshots/fix-invalid-products.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/snapshots/fix-invalid-products.js)_
 
-(fixsnapshotgateway) Fixes the bad references of the api in api_urls in the product payload of the snapshot for the first configured gateway service for the given catalog
+## `apicops snapshots:fix-invalid-products-gateway URL`
+
+(fixsnapshotgateway) Fixes the bad references of the api in api_urls in the product payload of the snapshot for the first configured gateway service for the given catalog (FP7 and below)
 
 ```
 USAGE
-  $ apicops snapshots:fix-invalid-products-gateway CATALOG
+  $ apicops snapshots:fix-invalid-products-gateway URL
 
 ARGUMENTS
-  CATALOG  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
+  URL  The gateway(s), identified via gateway UUID, catalog name/uuid in the form, <uuid>, <orgId/catalogId>,
+       <orgName/catalogName>
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops fixsnapshotgateway
 
 EXAMPLES
-  $ apicops snapshots:fix-invalid-products-gateway mycatalog         # Fixes the invalid products in the first gateway 
-  associated with catalog mycatalog
-  $ apicops fixsnapshotgateway aa592e2f-68b1-4380-ad7c-ac86c932f1e6  # Fixes the invalid products in the first gateway 
-  associated with the identified catalog
-  $ apicops fixsnapshotgateway myorg/mycatalog                       # Fixes the invalid products in the first gateway 
-  associated with catalog mycatalog
+  $ apicops snapshots:fix-invalid-products-gateway mycatalog                                     # Fixes the invalid 
+  products in the gateways associated with catalog mycatalog
+  $ apicops fixsnapshotgateway aa592e2f-68b1-4380-ad7c-ac86c932f1e6                              # Fixes the invalid 
+  products in the gateways associated with the identified catalog
+  $ apicops fixsnapshotgateway myorg/mycatalog                                                   # Fixes the invalid 
+  products in the gateways associated with catalog mycatalog
+  $ apicops snapshots:fix-invalid-products-gateway a0050e90-cf97-4989-961f-97cee80ad4c3          # Checks if there are 
+  invalid products in the gateway specified
 ```
+
+_See code: [src/commands/snapshots/fix-invalid-products-gateway.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/snapshots/fix-invalid-products-gateway.js)_
 
 ## `apicops snapshots:send SERVICE`
 
-(sendsnapshot) Send a snapshot to the service identified by the UUID provided. Note that before sending the snapshot the entire task queue will be cleared, so if you have any tasks in 'new' or 'inprogress' state etc. then they should either be sorted out first, or you will have to run sendsnapshot for the catalog related to those tasks afterwards
+(sendsnapshot) Send a snapshot to the service identified by the UUID provided. Note that before sending the snapshot the entire task queue will be cleared, so if you have any tasks in 'new' or 'inprogress' state etc. then they should either be sorted out first, or you will have to run sendsnapshot for the catalog related to those tasks afterwards (FP7 and below)
 
 ```
 USAGE
@@ -570,6 +713,10 @@ USAGE
 
 ARGUMENTS
   SERVICE  The portal or gateway service UUID
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops sendsnapshot
@@ -586,9 +733,11 @@ EXAMPLES
   of the myuniqueorg organisation
 ```
 
+_See code: [src/commands/snapshots/send.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/snapshots/send.js)_
+
 ## `apicops snapshots:validate CATALOG`
 
-(validatesnapshot) Validate the snapshots for a catalog, for the portal or the gateway, or both
+(validatesnapshot) Validate the snapshots for a catalog, for the portal or the gateway, or both (FP7 and below)
 
 ```
 USAGE
@@ -598,8 +747,12 @@ ARGUMENTS
   CATALOG  The catalog, identified via name or UUID, in the form, <catalog>, or <org>/<catalog>
 
 OPTIONS
-  -g, --gateway  Validate the gateway snapshots for the catalog
-  -p, --portal   Validate the portal snapshots for the catalog
+  -g, --gateway              Validate the gateway snapshots for the catalog
+
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
+  -p, --portal               Validate the portal snapshots for the catalog
 
 ALIASES
   $ apicops validatesnapshot
@@ -615,6 +768,8 @@ EXAMPLES
   identified by the UUID
 ```
 
+_See code: [src/commands/snapshots/validate.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/snapshots/validate.js)_
+
 ## `apicops spaces:get SPACE`
 
 (sp) Looks up a specific space based on the uuid of the space or name of the space in the format <org_id_or_name>/<catalog_id_or_name>/<space_id_or_name>
@@ -624,11 +779,14 @@ USAGE
   $ apicops spaces:get SPACE
 
 ARGUMENTS
-  SPACE  [default: ""] The id of the space, or, the name of the space in a particular org and catalog (format
+  SPACE  The id of the space, or, the name of the space in a particular org and catalog (format
          <org_id_or_name>/<catalog_id_or_name>/<space_id_or_name>)
 
 OPTIONS
-  -c, --catalogId=catalogId  [default: ""] The id or name of the catalog you want to list the spaces within
+  -c, --catalogId=catalogId  [default: ""] The id of the catalog you want to list the spaces within
+
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops sp
@@ -643,6 +801,8 @@ EXAMPLES
   identified by the UUID
 ```
 
+_See code: [src/commands/spaces/get.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/spaces/get.js)_
+
 ## `apicops spaces:list`
 
 (sps) Lists all spaces
@@ -653,6 +813,9 @@ USAGE
 
 OPTIONS
   -c, --catalogId=catalogId  [default: ""] The id or name of the catalog you want to list the spaces within
+
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops sps
@@ -665,13 +828,19 @@ EXAMPLES
   UUID
 ```
 
+_See code: [src/commands/spaces/list.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/spaces/list.js)_
+
 ## `apicops subscriber-queues:clear`
 
-(clearsubqueue) Clears all subscriber queue
+(clearsubqueue) Clears all subscriber queue (FP7 and below)
 
 ```
 USAGE
   $ apicops subscriber-queues:clear
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops clearsubqueues
@@ -680,6 +849,8 @@ EXAMPLES
   $ apicops subscriber-queues:clear  # Clears all items from the subscriber queues
   $ apicops clearsubqueues           # Clears all items from the subscriber queues
 ```
+
+_See code: [src/commands/subscriber-queues/clear.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/subscriber-queues/clear.js)_
 
 ## `apicops subscriber-queues:get-length SUBSCRIBER`
 
@@ -692,6 +863,10 @@ USAGE
 ARGUMENTS
   SUBSCRIBER  The id or name of the configured gateway service or portal service. If not unique you can prefix it with
               org/catalog or just catalog, where org and catalog can be names or uuids
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops subqueuelength
@@ -706,6 +881,8 @@ EXAMPLES
   queue
 ```
 
+_See code: [src/commands/subscriber-queues/get-length.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/subscriber-queues/get-length.js)_
+
 ## `apicops tables:check-index`
 
 (checkdataindexes) Checks inconsistencies between the main and index tables (data available in main table and not present in index table. Similarly data present in index table but not in main table)
@@ -713,6 +890,10 @@ EXAMPLES
 ```
 USAGE
   $ apicops tables:check-index
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops checktablesindex
@@ -722,6 +903,8 @@ EXAMPLES
   $ apicops checktablesindex    # Checks the index tables for inconsistencies
 ```
 
+_See code: [src/commands/tables/check-index.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/tables/check-index.js)_
+
 ## `apicops tables:check-link`
 
 (checkdatalinks) Checks inconsistencies between the link tables and the corresponding index tables
@@ -729,6 +912,10 @@ EXAMPLES
 ```
 USAGE
   $ apicops tables:check-link
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops checktableslink
@@ -738,13 +925,104 @@ EXAMPLES
   $ apicops checktableslink    # Checks the link tables for inconsistencies
 ```
 
+_See code: [src/commands/tables/check-link.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/tables/check-link.js)_
+
+## `apicops tables:get-contents [TABLE] [CHUNKSIZE]`
+
+(tablecontents) Dump out the contents in JSON format for the table specified. If the table is not provided you will be prompted from a list of available tables.
+
+```
+USAGE
+  $ apicops tables:get-contents [TABLE] [CHUNKSIZE]
+
+ARGUMENTS
+  TABLE      The table to list the contens of
+
+  CHUNKSIZE  [default: 65536] The chunk size to use for the select operation. If the objects in the table are very large
+             then a smaller chink size should be used.
+
+OPTIONS
+  -e, --embellish            Beautify the JSON
+
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
+ALIASES
+  $ apicops tablecontents
+
+EXAMPLES
+  $ apicops tables:get-contents apim.webhook  # Get the contents of the apim.webhook table
+  $ apicops tablecontents lur.dbuser          # Get the contents of the lur.dbuser table
+  $ apicops tablecontents lur.dbuser 64       # Get the contents of the lur.dbuser table with a chunk size of 64
+  $ apicops tablecontents -e lur.dbuser 64    # Get the contents of the lur.dbuser table with a chunk size of 64 and 
+  beautify the JSON
+```
+
+_See code: [src/commands/tables/get-contents.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/tables/get-contents.js)_
+
+## `apicops tables:list-sizes [KEYSPACE]`
+
+(tablesizes) List the sizes of all tables in the key space given. If no key space is provided you will be prompted from a list of available key spaces.
+
+```
+USAGE
+  $ apicops tables:list-sizes [KEYSPACE]
+
+ARGUMENTS
+  KEYSPACE  (apim|system|system_auth|lur|system_distributed|system_schema) The keyspace in which to list the table sizes
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
+ALIASES
+  $ apicops tablesizes
+
+EXAMPLES
+  $ apicops tables:list-sizes apim # List the sizes of all tables in the apim key space
+  $ apicops tablesizes lur         # List the sizes of all tables in the lur key space
+```
+
+_See code: [src/commands/tables/list-sizes.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/tables/list-sizes.js)_
+
+## `apicops tables:rebuild-indexes [TABLE]`
+
+(rebuildindexes) Truncates and repopulates the index tables from the associated main table provided. If no table is provided you will be prompted from a list of available tables
+
+```
+USAGE
+  $ apicops tables:rebuild-indexes [TABLE]
+
+ARGUMENTS
+  TABLE  The name of the main table to rebuild the associated index tables from
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
+ALIASES
+  $ apicops rebuildindexes
+
+EXAMPLES
+  $ apicops rebuildindexes apim.my_task  # Rebuild the index tables associated with and based off the content of the 
+  apim.my_task main table
+  $ apicops tables:rebuild-indexes       # Will prompt for the main table you want to choose from a list before 
+  rebuilding the index tables based on the table chosen
+```
+
+_See code: [src/commands/tables/rebuild-indexes.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/tables/rebuild-indexes.js)_
+
 ## `apicops task-queue:clear`
 
-(cleartasks) Clear the task queue of all tasks
+(cleartasks) Clear the task queue of all tasks (FP7 and below)
 
 ```
 USAGE
   $ apicops task-queue:clear
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops cleartasks
@@ -754,9 +1032,11 @@ EXAMPLES
   $ apicops cleartasks        # Clears all tasks from task queue
 ```
 
+_See code: [src/commands/task-queue/clear.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/task-queue/clear.js)_
+
 ## `apicops tasks:create-gateway GATEWAY`
 
-(creategatewaytask) Creates a snapshot task for the specified gateway
+(creategatewaytask) Creates a snapshot task for the specified gateway (FP7 and below)
 
 ```
 USAGE
@@ -764,6 +1044,10 @@ USAGE
 
 ARGUMENTS
   GATEWAY  The configured gateway service ID or URL
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops creategatewaytask
@@ -777,9 +1061,11 @@ EXAMPLES
   by the url
 ```
 
+_See code: [src/commands/tasks/create-gateway.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/tasks/create-gateway.js)_
+
 ## `apicops tasks:create-portal PORTAL`
 
-(createportaltask) Creates a snapshot task for the specified portal
+(createportaltask) Creates a snapshot task for the specified portal (FP7 and below)
 
 ```
 USAGE
@@ -787,6 +1073,10 @@ USAGE
 
 ARGUMENTS
   PORTAL  The configured portal service ID or URL
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops createportaltask
@@ -800,6 +1090,8 @@ EXAMPLES
   the url
 ```
 
+_See code: [src/commands/tasks/create-portal.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/tasks/create-portal.js)_
+
 ## `apicops tasks:get TASKID`
 
 (gettask) Dumps out the task identified by taskId
@@ -811,6 +1103,10 @@ USAGE
 ARGUMENTS
   TASKID  The id of the task to show
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops gettask
 
@@ -818,6 +1114,26 @@ EXAMPLES
   $ apicops gettask 4eab42d5-6ba8-4e68-ac87-44ff229db677    # Get a task by UUID
   $ apicops tasks:get 4eab42d5-6ba8-4e68-ac87-44ff229db677  # Get a task by UUID
 ```
+
+_See code: [src/commands/tasks/get.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/tasks/get.js)_
+
+## `apicops tasks:list`
+
+( Lists all tasks )
+
+```
+USAGE
+  $ apicops tasks:list
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
+EXAMPLE
+  $ apicops tasks:list  # List all tasks
+```
+
+_See code: [src/commands/tasks/list.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/tasks/list.js)_
 
 ## `apicops tasks:renew TASKID`
 
@@ -830,6 +1146,10 @@ USAGE
 ARGUMENTS
   TASKID  The id of the task to renew
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops renewtask
 
@@ -837,6 +1157,8 @@ EXAMPLES
   $ apicops renewtask 4eab42d5-6ba8-4e68-ac87-44ff229db677    # Renews a task by UUID
   $ apicops tasks:renew 4eab42d5-6ba8-4e68-ac87-44ff229db677  # Renews a task by UUID
 ```
+
+_See code: [src/commands/tasks/renew.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/tasks/renew.js)_
 
 ## `apicops webhook-subscriptions:check-orphans`
 
@@ -846,6 +1168,10 @@ EXAMPLES
 USAGE
   $ apicops webhook-subscriptions:check-orphans
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops checkorphans
 
@@ -853,6 +1179,8 @@ EXAMPLES
   $ apicops webhook-subscriptions:check-orphans  # List any orphaned webhook subscriptions
   $ apicops checkorphans                         # List any orphaned webhook subscriptions
 ```
+
+_See code: [src/commands/webhook-subscriptions/check-orphans.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/webhook-subscriptions/check-orphans.js)_
 
 ## `apicops webhook-subscriptions:delete-orphans`
 
@@ -862,6 +1190,10 @@ EXAMPLES
 USAGE
   $ apicops webhook-subscriptions:delete-orphans
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops deleteorphans
 
@@ -869,6 +1201,8 @@ EXAMPLES
   $ apicops webhook-subscriptions:delete-orphans  # Deletes any orphaned webhook subscriptions
   $ apicops deleteorphans                         # Deletes any orphaned webhook subscriptions
 ```
+
+_See code: [src/commands/webhook-subscriptions/delete-orphans.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/webhook-subscriptions/delete-orphans.js)_
 
 ## `apicops webhook-subscriptions:list`
 
@@ -878,6 +1212,10 @@ EXAMPLES
 USAGE
   $ apicops webhook-subscriptions:list
 
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
+
 ALIASES
   $ apicops webhooksubs
 
@@ -886,9 +1224,11 @@ EXAMPLES
   $ apicops webhooksubs                 # List all webhook subscriptions
 ```
 
+_See code: [src/commands/webhook-subscriptions/list.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/webhook-subscriptions/list.js)_
+
 ## `apicops webhook-subscriptions:mark-gateway URLORID`
 
-(markgatewaysub) Update the state of the given gateway webhook subscription record to online
+(markgatewaysub) Update the state of the given gateway webhook subscription record to online (FP7 and below)
 
 ```
 USAGE
@@ -896,6 +1236,10 @@ USAGE
 
 ARGUMENTS
   URLORID  The "Webhook URL" of the gateway or just the uuid for the configured gateway service from "apicops iss"
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops markgatewaysub
@@ -909,9 +1253,11 @@ EXAMPLES
   identified by the URL
 ```
 
+_See code: [src/commands/webhook-subscriptions/mark-gateway.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/webhook-subscriptions/mark-gateway.js)_
+
 ## `apicops webhook-subscriptions:mark-portal URLORID`
 
-(markportalsub) Update the state of the given portal webhook subscription record to offline_configured
+(markportalsub) Update the state of the given portal webhook subscription record to offline_configured (FP7 and below)
 
 ```
 USAGE
@@ -919,6 +1265,10 @@ USAGE
 
 ARGUMENTS
   URLORID  The "Webhook URL" of the portal or just the uuid for the configured portal service from "apicops iss"
+
+OPTIONS
+  -n, --namespace=namespace  The kubernetes namespace to target (this will override any namespace you may have set in
+                             your kubeconfig)
 
 ALIASES
   $ apicops markportalsub
@@ -931,4 +1281,6 @@ EXAMPLES
   $ apicops markportalsub myuniquecat:portal-1                  # Update the subcsription to offline_configured for the 
   portal identified by the URL
 ```
+
+_See code: [src/commands/webhook-subscriptions/mark-portal.js](https://github.com/velox/apicops/blob/v0.2.32/src/commands/webhook-subscriptions/mark-portal.js)_
 <!-- commandsstop -->
