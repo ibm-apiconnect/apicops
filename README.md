@@ -3,6 +3,8 @@ apicops
 
 <!-- toc -->
 * [About](#about)
+* [Latest v2018 release](#latest-v2018-release)
+* [Latest v10 release](#latest-v10-release)
 * [Warning](#warning)
 * [Installing](#installing)
 * [Requirements](#requirements)
@@ -16,6 +18,15 @@ apicops
 It is in active development and new versions will be posted here regularly. Please always use the latest version, as it will contain the latest improvements, commands, and any bug fixes.
 
 Please note this has only been tested against IBM API Connect v2018.4.1.6+.
+
+# Latest v2018 release
+
+https://github.com/ibm-apiconnect/apicops/releases/tag/v0.2.191
+
+# Latest v10 release
+
+https://github.com/ibm-apiconnect/apicops/releases/tag/v0.10.33
+
 
 # Warning
 
