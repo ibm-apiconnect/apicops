@@ -21,11 +21,11 @@ Please note this has only been tested against IBM API Connect v2018.4.1.6+.
 
 # Latest v2018 release
 
-https://github.com/ibm-apiconnect/apicops/releases/tag/v0.2.195
+https://github.com/ibm-apiconnect/apicops/releases/tag/v0.2.196
 
 # Latest v10 release
 
-https://github.com/ibm-apiconnect/apicops/releases/tag/v0.10.33
+https://github.com/ibm-apiconnect/apicops/releases/tag/v0.10.36
 
 
 # Warning
