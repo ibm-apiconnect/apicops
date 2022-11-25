@@ -25,7 +25,7 @@ https://github.com/ibm-apiconnect/apicops/releases/tag/0.2.216
 
 # Latest v10 release
 
-https://github.com/ibm-apiconnect/apicops/releases/tag/v0.10.57
+https://github.com/ibm-apiconnect/apicops/releases/tag/v0.10.58
 
 
 # Warning
