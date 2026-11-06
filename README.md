@@ -17,13 +17,17 @@ It is in active development and new versions will be posted here regularly. Plea
 
 Please note this has only been tested against IBM API Connect v10.
 
+# Latest v12 release
+
+https://github.com/ibm-apiconnect/apicops/releases/latest
+
+# Latest v10 release
+
+https://github.com/ibm-apiconnect/apicops/releases/tag/v0.10.85
+
 # Latest v2018 release
 
 https://github.com/ibm-apiconnect/apicops/releases/tag/0.2.216
-
-# Latest v12 release (backwards compatible with v10)
-
-https://github.com/ibm-apiconnect/apicops/releases/latest
 
 # Warning
 
